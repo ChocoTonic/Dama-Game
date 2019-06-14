@@ -40,6 +40,7 @@ document.getElementById('board-game').addEventListener('click', e => {
     //check if box is empty (Available)
     if(emptyBox(target.id)){
         //if moving turn and move is possible, move the pawn else invok a pawn
+        
         if(movingTurn && possibleMove(target.id)){
           //turn moving turn to false since we only gotta move once per turn
           
@@ -75,7 +76,8 @@ document.getElementById('board-game').addEventListener('click', e => {
         }//end else movingTurn
     }else{
       //if player has right to move the pawn X/O
-      if(canMovePawn() && movingTurn === false){
+      //also make sure each player doesn't move his opponent's pawn
+      if(canMovePawn() && movingTurn === false && pawnOwner(target.id)){
         //ready to move 
         readyToMove(target.id);
         //console.log('inside canMovePawn()');
@@ -88,6 +90,23 @@ document.getElementById('board-game').addEventListener('click', e => {
       
   }
 });
+
+//if winner function
+function ifWinner(plays, player){
+  //run through all the winning options
+  winningPlays.forEach(winPlay => {
+      //check is the winning play is included in the player's plays
+      if(winPlay.every(i => plays.includes(i)))
+      {
+          alert('Congratualtions player : ' + player);
+          location.reload();
+      }
+      
+  });
+}
+function pawnOwner(pawn){
+  return (turn === 0 && Oplays.includes(pawn) || turn === 1 && Xplays.includes(pawn)) ? true : false;
+}
 //possibleMove
 function possibleMove(move){
   return (possibleMoves[pawnToMove].includes(move)) ? true : false;
@@ -105,16 +124,21 @@ function turnChanger(playerPlay){
   let turnPlay;
   if(turn === 0){
       turnPlay = 'O';
+      
        playerPlays(playerPlay);
-      // ifWinner(Oplays, turnPlay);
+
+      //check if player is winner
+      ifWinner(Oplays, turnPlay);
+      //switch turn 
       turn = 1;
   }else{
       turnPlay = 'X';
+
       //push play to player arrayPlays
       playerPlays(playerPlay);
       //check if player is winner
-      // ifWinner(Xplays, turnPlay);
       //switch turn 
+			ifWinner(Xplays, turnPlay);
       turn = 0;
   }
   return turnPlay;
