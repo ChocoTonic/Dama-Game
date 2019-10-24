@@ -62,7 +62,7 @@ class Player{
     this.winningSlots = [];
   }
 
-  ifOwner(pawnTarget){
+  isOwner(pawnTarget){
     
     const targetId = parseInt(pawnTarget.dataset.id, 10);
     const playerPawnsIds = this.pawns.map(pawn => pawn.id);

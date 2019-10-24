@@ -6,7 +6,7 @@ const selectPawn = function(e){
   //check if player own the pawn
   
   if(e.target.classList.contains("pawn")
-      && player.ifOwner(e.target)
+      && player.isOwner(pawn)
       ){
     
     // console.log('target ', e.target);
@@ -27,9 +27,11 @@ const selectPawn = function(e){
 
 //Movepawn fn
 const movePawn = function(e){
-  
+  let player = board.turn;
+  let pawn = e.target;
+   
   if(board.actualPawn && 
-      e.target.classList.contains('slot')){
+      pawn.classList.contains('slot')){
 
     this.appendChild(board.actualPawn);
   
