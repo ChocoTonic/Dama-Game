@@ -1,15 +1,11 @@
 //selectPawn Fn
 const selectPawn = function(e){
-  
-  
-  
-  
 
   let player = board.turnOfPlayer;
   console.log(player.username, " 's turn");
   let pawn = e.target;
   //check if player own the pawn
-  console.log(pawn);
+  // console.log(pawn);
   
   if(e.target.classList.contains("pawn") && 
         player.isOwner(pawn) &&
@@ -25,24 +21,26 @@ const selectPawn = function(e){
     //highlights slots and pawn
     
     ui.highlightPawn(board.actualPawn, "highlight-pawn");
-    ui.highlightTargetSlots(ui.slots, "highlight-slot");
+
+    const possibleMoves = board.getPossibleMoves(pawn, player);
+    console.log('possible moves', possibleMoves);
+    // ui.highlightEls(possibleMoves, "highlight-slots");
     // this.classList.add("highlight-pawn");
     // for(slot of ui.slots){
     //   slot.classList.add('highlight-slot');
     // }
     
     // console.log('actual ', board.actualPawn);
-  }
+  }//end if parent
   
   
-}//end movePawn fn
+}//end selectPawn fn
 
 //Movepawn fn
 const movePawn = function(e){
   let player = board.turnOfPlayer;
   let slot = e.target;
    
-  //if 
   //if player has right to move
   if(board.actualPawn && 
       slot.classList.contains('slot') &&
@@ -53,7 +51,7 @@ const movePawn = function(e){
     // this.appendChild(board.actualPawn);
   
     //remove highlight
-    console.log('dehiglight slots')
+    // console.log('dehiglight slots')
     ui.dehighlightEls(ui.slots, "highlight-slot");
     ui.dehighlightEls(ui.pawns, "highlight-pawn");
     // for(slot of ui.slots){
