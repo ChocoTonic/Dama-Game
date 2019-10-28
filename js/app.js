@@ -107,7 +107,7 @@ class Board{
 
   canSelectPawn(player, pawnTarget){
 
-    //Can't select an invoked pawn unless all pawns are invoked
+    //Can't select an invoked pawn unless all pawns've been invoked
     const targetPawnID = parseInt(pawnTarget.dataset.id, 10)
     
     for(let pawn of player.pawns){
@@ -165,21 +165,28 @@ class Board{
     console.log("available slots ",  this.availableSlots);
   }//end movePawn
 
-  getPossibleMoves(targetPawn, player){
+  getPossibleMoves(targetPawn, player, UIslots){
     //this needs some thinking
     
     const targetPawnID = parseInt(targetPawn.dataset.id, 10);
     //if pawn is not invoked yet then it can move anywhere
     for(let pawn of player.pawns){
       if(pawn.id === targetPawnID && pawn.invoked === false){
-        return this.slots.map(slot => slot.id);
+        return UIslots;
       }
     }
     //else 
     const parentSlotID = parseInt(targetPawn.parentElement.dataset.id, 10);
-
     
-
+    let possibleMoves;
+    // get pM array from this.slots
+    for(let slot of this.slots){
+      if(slot.id === parentSlotID){
+        possibleMoves = slot.possibleMoves;
+      }
+    }
+    //loop n filter nodelist => return UIslot if possible Move
+    return Array.from(UIslots).filter(UIslot => possibleMoves.includes(parseInt(UIslot.dataset.id, 10)));
 
   }
 
@@ -214,9 +221,11 @@ class UI{
     
   }
   highlightTargetSlots(els, className){
+    
     for(let el of els){
-        el.classList.add(className);
-    } 
+      // console.log(el);
+      el.classList.add(className);
+      }
   }
 
   highlightPawn(pawn){

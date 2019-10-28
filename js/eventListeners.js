@@ -22,9 +22,9 @@ const selectPawn = function(e){
     
     ui.highlightPawn(board.actualPawn, "highlight-pawn");
 
-    const possibleMoves = board.getPossibleMoves(pawn, player);
+    const possibleMoves = board.getPossibleMoves(pawn, player, ui.slots);
     console.log('possible moves', possibleMoves);
-    // ui.highlightEls(possibleMoves, "highlight-slots");
+     ui.highlightTargetSlots(possibleMoves, "highlight-slot");
     // this.classList.add("highlight-pawn");
     // for(slot of ui.slots){
     //   slot.classList.add('highlight-slot');
