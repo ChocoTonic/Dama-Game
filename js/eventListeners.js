@@ -9,7 +9,8 @@ const selectPawn = function(e){
   
   if(e.target.classList.contains("pawn") && 
         player.isOwner(pawn) &&
-          board.canSelectPawn(player, pawn)
+          board.canSelectPawn(player, pawn) &&
+            board.gameOver === false
       ){
     
     ui.dehighlightEls(ui.slots, "highlight-slot");
@@ -63,6 +64,8 @@ const movePawn = function(e){
 
     //check if player isWinner
     if(board.isWinner(player)){
+      
+      board.gameOver = true;
       board.celebrateWinner(player);
     }else{
       //switch turn 

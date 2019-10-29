@@ -201,13 +201,10 @@ class Board{
                             playerSlots.includes(slot)));
 
     winningCompo = [].concat(...winningCompo);
-    //since this is not compatible with edge we'll have to use this guy's
-    //answer https://stackoverflow.com/questions/10865025/merge-flatten-an-array-of-arrays
 
-    console.log('WC ', winningCompo);
-    //this.gameOver = true;
-    return false;
-  }
+    return winningCompo.length === 3;
+    
+  }//end isWinner
 
   celebrateWinner(player){
     console.log(`congratualtions ${player.username} for the Win`);
