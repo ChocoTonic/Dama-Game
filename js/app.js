@@ -145,7 +145,7 @@ class Board{
         pawn.slot = slotID;
       }
     }
-    console.log(`${player.username} Pawns => `, player.pawns);
+    //console.log(`${player.username} Pawns => `, player.pawns);
 
     //if pawn was invoked update value to true
     for(let pawn of player.pawns){
@@ -162,7 +162,7 @@ class Board{
       this.availableSlots.splice(index, 1) :
         console.log('something went wrong');
     
-    console.log("available slots ",  this.availableSlots);
+    //console.log("available slots ",  this.availableSlots);
   }//end movePawn
 
   getPossibleMoves(targetPawn, player, UIslots){
@@ -176,18 +176,41 @@ class Board{
       }
     }
     //else 
+    //get parent slot of actual pawn
     const parentSlotID = parseInt(targetPawn.parentElement.dataset.id, 10);
     
     let possibleMoves;
-    // get pM array from this.slots
+    // get possibleMoves of actual pawn
     for(let slot of this.slots){
       if(slot.id === parentSlotID){
         possibleMoves = slot.possibleMoves;
       }
     }
     //loop n filter nodelist => return UIslot if possible Move
-    return Array.from(UIslots).filter(UIslot => possibleMoves.includes(parseInt(UIslot.dataset.id, 10)));
+    return Array.from(UIslots).filter(UIslot => possibleMoves.includes  (parseInt(UIslot.dataset.id, 10)) && 
+      this.availableSlots.includes(parseInt(UIslot.dataset.id, 10)));
 
+  }//end getPossibleMoves
+
+  isWinner(player){
+
+    const playerSlots = player.pawns.map(pawn => pawn.slot);
+    
+    let winningCompo = this.winningSlots.filter(winningLine => 
+                            winningLine.every(slot => 
+                            playerSlots.includes(slot)));
+
+    winningCompo = [].concat(...winningCompo);
+    //since this is not compatible with edge we'll have to use this guy's
+    //answer https://stackoverflow.com/questions/10865025/merge-flatten-an-array-of-arrays
+
+    console.log('WC ', winningCompo);
+    //this.gameOver = true;
+    return false;
+  }
+
+  celebrateWinner(player){
+    console.log(`congratualtions ${player.username} for the Win`);
   }
 
 }//end Board class
@@ -197,7 +220,7 @@ class Player{
   constructor(username, isComputer, pawns){
     this.username = username;
     this.isComputer = isComputer;
-    this.slots = [];
+    //this.slots = [];
     this.pawns = pawns;
     this.winningSlots = [];
   }
@@ -242,6 +265,11 @@ class UI{
       }
     } 
   }//end dehighlight
+
+  isWinner(){
+
+
+  }//end isWinner
 }
 
 //new UI inst

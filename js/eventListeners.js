@@ -23,7 +23,7 @@ const selectPawn = function(e){
     ui.highlightPawn(board.actualPawn, "highlight-pawn");
 
     const possibleMoves = board.getPossibleMoves(pawn, player, ui.slots);
-    console.log('possible moves', possibleMoves);
+    //console.log('possible moves', possibleMoves);
      ui.highlightTargetSlots(possibleMoves, "highlight-slot");
     // this.classList.add("highlight-pawn");
     // for(slot of ui.slots){
@@ -60,11 +60,18 @@ const movePawn = function(e){
     // }
     // console.log(board.actualPawn);
     board.actualPawn = false;
-    //switch turn 
-    board.turnOfPlayer = (board.turnOfPlayer === board.players[0]) ?
+
+    //check if player isWinner
+    if(board.isWinner(player)){
+      board.celebrateWinner(player);
+    }else{
+      //switch turn 
+      board.turnOfPlayer = (board.turnOfPlayer === board.players[0]) ?
                             board.players[1] :
-                              board.players[0];
-    console.log('turn switched to player ', board.turnOfPlayer.username);
+                            board.players[0];
+      //console.log('turn switched to player ', board.turnOfPlayer.username);
+    }
+    
   }//end if parent
 
 }//end movepawn
