@@ -169,10 +169,10 @@ class Board{
     //this needs some thinking
     
     const targetPawnID = parseInt(targetPawn.dataset.id, 10);
-    //if pawn is not invoked yet then it can move anywhere
+    //if pawn is not invoked yet then invoke in any free slot
     for(let pawn of player.pawns){
       if(pawn.id === targetPawnID && pawn.invoked === false){
-        return UIslots;
+        return Array.from(UIslots).filter(UIslot => this.availableSlots.includes(parseInt(UIslot.dataset.id, 10)));
       }
     }
     //else 
@@ -208,6 +208,11 @@ class Board{
 
   celebrateWinner(player){
     console.log(`congratualtions ${player.username} for the Win`);
+  }
+
+  ifPossibleMove(possibleMoves, targetSlot){
+    const targetSlotID = parseInt(targetSlot.dataset.id, 10);
+    return possibleMoves.includes(targetSlotID);
   }
 
 }//end Board class

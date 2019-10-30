@@ -22,10 +22,16 @@ const selectPawn = function(e){
     //highlights slots and pawn
     
     ui.highlightPawn(board.actualPawn, "highlight-pawn");
-
-    const possibleMoves = board.getPossibleMoves(pawn, player, ui.slots);
+    
+    //possible moves === UIslots
+    const UIpossibleMoves = board.getPossibleMoves(pawn, player, ui.slots);
+    
     //console.log('possible moves', possibleMoves);
-     ui.highlightTargetSlots(possibleMoves, "highlight-slot");
+    console.log(UIpossibleMoves);
+    board.actualPossibleMoves = Array.from(UIpossibleMoves).map(slot => parseInt(slot.dataset.id, 10));
+
+    console.log(board.actualPossibleMoves);
+    ui.highlightTargetSlots(UIpossibleMoves, "highlight-slot");
     // this.classList.add("highlight-pawn");
     // for(slot of ui.slots){
     //   slot.classList.add('highlight-slot');
@@ -45,7 +51,8 @@ const movePawn = function(e){
   //if player has right to move
   if(board.actualPawn && 
       slot.classList.contains('slot') &&
-        board.freeSlot(slot)){
+        board.freeSlot(slot) &&
+          board.ifPossibleMove(board.actualPossibleMoves, slot)){
 
     
     board.movePawn(board.actualPawn, this, player)    
