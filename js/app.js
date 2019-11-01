@@ -206,11 +206,9 @@ class Board{
     
   }//end isWinner
 
-  celebrateWinner(player){
-    console.log(`congratualtions ${player.username} for the Win`);
-  }
 
-  ifPossibleMove(possibleMoves, targetSlot){
+
+  isPossibleMove(possibleMoves, targetSlot){
     const targetSlotID = parseInt(targetSlot.dataset.id, 10);
     return possibleMoves.includes(targetSlotID);
   }
@@ -243,6 +241,7 @@ class UI{
     this.board = document.querySelector('#board');
     this.slots = document.querySelectorAll('.slot');
     this.pawns = document.querySelectorAll('.pawn');
+    this.playAgain = document.querySelector('#play-again');
     
   }
   highlightTargetSlots(els, className){
@@ -268,10 +267,18 @@ class UI{
     } 
   }//end dehighlight
 
-  isWinner(){
 
-
-  }//end isWinner
+  celebrateWinner(player){
+    console.log(`congratualtions ${player.username} for the Win`);
+    for(const pawn of player.pawns){
+      let slotID = pawn.slot;
+      for(const UIslot of this.slots){
+        if(slotID == UIslot.dataset.id){
+          UIslot.classList.add('winner-slot');
+        }
+      }
+    }
+  }//end celebrateWinner
 }
 
 //new UI inst
@@ -302,3 +309,6 @@ for(let pawn of ui.pawns){
 for(let slot of ui.slots){
   slot.addEventListener('click', movePawn);
 }
+
+//play-again btn
+ui.playAgain.addEventListener('click', playAgain); 

@@ -18,14 +18,20 @@ html, body{
   justify-content: space-between;
 }
 
-.container{
+.board-container{
   display:flex;
   flex-direction:row;
   justify-content: space-between;
   border:1px blue dashed;
   width:90%;
   height:70%;
-  margin:50px auto;
+  margin:50px auto 0;
+}
+.container{
+
+  border:1px blue dashed;
+  width:90%;
+  margin:5px auto;
 }
 
 .slot{
@@ -76,4 +82,9 @@ html, body{
 
 .player2-pawn{
   background:green;
+}
+
+.winner-slot{
+  background:red;
+  
 }

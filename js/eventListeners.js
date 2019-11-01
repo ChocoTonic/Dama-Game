@@ -27,10 +27,10 @@ const selectPawn = function(e){
     const UIpossibleMoves = board.getPossibleMoves(pawn, player, ui.slots);
     
     //console.log('possible moves', possibleMoves);
-    console.log(UIpossibleMoves);
+    //console.log(UIpossibleMoves);
     board.actualPossibleMoves = Array.from(UIpossibleMoves).map(slot => parseInt(slot.dataset.id, 10));
 
-    console.log(board.actualPossibleMoves);
+    //console.log(board.actualPossibleMoves);
     ui.highlightTargetSlots(UIpossibleMoves, "highlight-slot");
     // this.classList.add("highlight-pawn");
     // for(slot of ui.slots){
@@ -52,7 +52,7 @@ const movePawn = function(e){
   if(board.actualPawn && 
       slot.classList.contains('slot') &&
         board.freeSlot(slot) &&
-          board.ifPossibleMove(board.actualPossibleMoves, slot)){
+          board.isPossibleMove(board.actualPossibleMoves, slot)){
 
     
     board.movePawn(board.actualPawn, this, player)    
@@ -73,7 +73,7 @@ const movePawn = function(e){
     if(board.isWinner(player)){
       
       board.gameOver = true;
-      board.celebrateWinner(player);
+      ui.celebrateWinner(player);
     }else{
       //switch turn 
       board.turnOfPlayer = (board.turnOfPlayer === board.players[0]) ?
@@ -85,3 +85,10 @@ const movePawn = function(e){
   }//end if parent
 
 }//end movepawn
+
+//play again btn
+const playAgain = function(e){
+  
+  location.reload();
+  e.preventDefault();
+}
