@@ -21,7 +21,8 @@ html, body{
   justify-self: center;
 }
 
-.board-container{
+
+#board-view{
   display:grid;
   grid-template-columns: min-content auto min-content; 
   grid-template-areas: "pawns1 board pawns2"
@@ -30,6 +31,12 @@ html, body{
   border:1px red dashed;
   width:100%;
   margin-top:1rem;
+}
+#home-view{
+  display:flex;
+  flex-direction:column;
+  align-items: center;
+  
 }
 .board-footer{
   grid-area: footer;

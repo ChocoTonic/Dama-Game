@@ -86,9 +86,28 @@ const movePawn = function(e){
 
 }//end movepawn
 
-//play again btn
-const playAgain = function(e){
-  
+
+//start multiplayerMode
+const multiplayerMode = function(e){
+  const player1 = new Player('player-1', 
+                          false, 
+                          board.player1Pawns);
+  const player2 = new Player('player-2', 
+                          false, 
+                          board.player2Pawns);
+  //reference players on board.
+  board.players.push(player1, player2);
+  //set first turn to player1
+  board.turnOfPlayer = board.players[0];
+
+  //render multiplayer state
+  ui.renderState('multiplayer');
+
+  e.preventDefault();
+} //end multiplayerMode
+
+//back btn
+const back = function(e){
   location.reload();
   e.preventDefault();
-}
+}//end back btn

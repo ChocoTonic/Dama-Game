@@ -8,8 +8,13 @@
   <title>Dama Game</title>
 </head>
 <body>
-  <div class="container">
-    <div class="board-container">
+  <div class="container ">
+    <div id="home-view">
+        <h1>DAMA GAME</h1>
+        <p><input type="button" value="Single Player" id="single-player" class="btn"></p>
+        <p><input type="button" value="MultiPlayer" id="multiplayer" class="btn"></p>
+    </div>
+    <div id="board-view">
       <div class="pawns-container player1-pawns">
           <div id="" class="pawn player1-pawn" data-id ="1"></div>
           <div id="" class="pawn player1-pawn" data-id ="2"></div>
@@ -38,7 +43,8 @@
           <div id="" class="pawn player2-pawn" data-id ="6"></div>
       </div>
       <div class="board-footer">
-        <input type="button" value="Play Again" id="play-again" class="btn">
+        <input type="button" value="Back" id="back" class="btn">
+        
       </div>
     </div><!-- end board-container -->
   </div> <!-- end container -->

@@ -241,8 +241,11 @@ class UI{
     this.board = document.querySelector('#board');
     this.slots = document.querySelectorAll('.slot');
     this.pawns = document.querySelectorAll('.pawn');
-    this.playAgain = document.querySelector('#play-again');
-    
+    this.back = document.querySelector('#back');
+    this.boardView = document.querySelector('#board-view');
+    this.homeView = document.querySelector('#home-view');
+    this.singlePlayer = document.querySelector('#single-player');
+    this.multiPlayer = document.querySelector('#multiplayer');
   }
   highlightTargetSlots(els, className){
     
@@ -279,36 +282,60 @@ class UI{
       }
     }
   }//end celebrateWinner
+
+  
+  renderState(state){
+    const UIstate = state || 'Init';
+
+    switch(UIstate){
+      case 'Init':
+        //clean state
+        this.boardView.style.display = "none";
+        this.homeView.style.display = "flex";
+
+        break;
+      //single player or multipalayer
+      case 'multiplayer':
+        this.boardView.style.display = "grid";
+        this.homeView.style.display = "none";
+        break;
+      //if single player then player1 vs computer
+      case 'showBoard':
+
+        break;
+
+      default:
+        console.log("something went wrong on state manager");
+    }//end switch
+  }//end renderState
+  
 }
 
 //new UI inst
 const board = new Board;
 const ui = new UI;
-const player1 = new Player('player-1', 
-                          false, 
-                          board.player1Pawns);
-const player2 = new Player('player-2', 
-                          false, 
-                          board.player2Pawns);
 
-//reference players on board.
-board.players.push(player1, player2);
-//set first turn to player1
-board.turnOfPlayer = board.players[0];
+//init game
+ui.renderState();
+
 
 
 
 //event Listeners
+//multiplayer mode => p1 vs p2
+ui.multiPlayer.addEventListener('click', multiplayerMode);
+
+//singlePlayer Mode => p1 vs comp
 
 //loop through pawns
 for(let pawn of ui.pawns){
   pawn.addEventListener('click', selectPawn);
 }
-
 //loop thru slots
 for(let slot of ui.slots){
   slot.addEventListener('click', movePawn);
 }
 
 //play-again btn
-ui.playAgain.addEventListener('click', playAgain); 
+ui.back.addEventListener('click', back); 
+
