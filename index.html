@@ -8,9 +8,9 @@
   <title>Dama Game</title>
 </head>
 <body>
-    
+  <div class="container">
     <div class="board-container">
-      <div class="pawns-container">
+      <div class="pawns-container player1-pawns">
           <div id="" class="pawn player1-pawn" data-id ="1"></div>
           <div id="" class="pawn player1-pawn" data-id ="2"></div>
           <div id="" class="pawn player1-pawn" data-id ="3"></div>
@@ -31,16 +31,18 @@
             <div class="slot" data-id ="8"></div>
             <div class="slot" data-id ="9"></div>
         </div>
-      </div>
-      <div class="pawns-container">
+      </div><!-- end board -->
+      <div class="pawns-container player2-pawns">
           <div id="" class="pawn player2-pawn" data-id ="4"></div>
           <div id="" class="pawn player2-pawn" data-id ="5"></div>
           <div id="" class="pawn player2-pawn" data-id ="6"></div>
       </div>
-    </div>
-    <div class="container">
-      <input type="button" value="Play Again" id="play-again" class="btn">
-    </div>
+      <div class="board-footer">
+        <input type="button" value="Play Again" id="play-again" class="btn">
+      </div>
+    </div><!-- end board-container -->
+  </div> <!-- end container -->
+    
 
 
     <script type="text/javascript">'use strict';</script>

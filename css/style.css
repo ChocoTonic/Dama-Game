@@ -16,22 +16,38 @@ html, body{
   display:flex;
   flex-direction: column;
   justify-content: space-between;
+  grid-area: board;
+  border:1px yellow dashed;
+  justify-self: center;
 }
 
 .board-container{
-  display:flex;
-  flex-direction:row;
-  justify-content: space-between;
-  border:1px blue dashed;
-  width:90%;
-  height:70%;
-  margin:50px auto 0;
+  display:grid;
+  grid-template-columns: min-content auto min-content; 
+  grid-template-areas: "pawns1 board pawns2"
+                       "footer footer footer" 
+  ;
+  border:1px red dashed;
+  width:100%;
+  margin-top:1rem;
+}
+.board-footer{
+  grid-area: footer;
+  text-align:center;
+  margin-top:0.5rem;
+}
+.player1-pawns{
+  grid-area: pawns1;
+}
+.player2-pawns{
+  grid-area: pawns2;
 }
 .container{
 
   border:1px blue dashed;
   width:90%;
   margin:5px auto;
+  min-width:750px;
 }
 
 .slot{
@@ -56,10 +72,9 @@ html, body{
   flex-direction:column;
   justify-content:space-around;
   border:1px green solid;
-  align-self:center;
   align-items:center;
   width: 55px;
-
+  align-self:center;
 }
 .pawn{
   height:40px;
