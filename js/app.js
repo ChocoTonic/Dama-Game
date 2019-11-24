@@ -126,6 +126,24 @@ class Board{
       return true;
   }//end canSelectPawn
 
+  selectComputerPawn(ComputerPawns){
+
+    //while selecting pawns give precedence to non-invoked ones
+    const targetPawn = ComputerPawns.filter(pawn => pawn.invoked === false)[0] 
+                          || ComputerPawns[Math.floor(Math.random()*ComputerPawns.length)];
+
+    const UITargetPawn = ui.getUIPawn(targetPawn);
+    console.log(targetPawn); 
+    console.log(UITargetPawn);
+    ui.highlightPawn(UITargetPawn);
+   
+  }//end selectComputerPawn
+  
+  moveComputerPawn(){
+
+    console.log('will move computer pawn shortly ==> script is missing');
+  }// end move computer pawn
+
   movePawn(targetPawn, slot, player){
     
     const slotID = parseInt(slot.dataset.id, 10);
@@ -241,7 +259,7 @@ class UI{
     this.board = document.querySelector('#board');
     this.slots = document.querySelectorAll('.slot');
     this.pawns = document.querySelectorAll('.pawn');
-    this.back = document.querySelector('#back');
+    this.backBtn = document.querySelector('#back');
     this.boardView = document.querySelector('#board-view');
     this.homeView = document.querySelector('#home-view');
     this.singlePlayer = document.querySelector('#single-player');
@@ -270,6 +288,18 @@ class UI{
     } 
   }//end dehighlight
 
+  getUIPawn(pawn){
+
+    let found = null;
+    for(const UIPawn of this.pawns){
+      if(UIPawn.dataset.id == pawn.id){
+        found = UIPawn;
+        break;
+      }
+    }
+    return found;
+  }//end getUIPawn
+
 
   celebrateWinner(player){
     console.log(`congratualtions ${player.username} for the Win`);
@@ -294,8 +324,8 @@ class UI{
         this.homeView.style.display = "flex";
 
         break;
-      //single player or multipalayer
-      case 'multiplayer':
+      //start game
+      case 'startGame':
         this.boardView.style.display = "grid";
         this.homeView.style.display = "none";
         break;
@@ -322,10 +352,11 @@ ui.renderState();
 
 
 //event Listeners
-//multiplayer mode => p1 vs p2
+//multiplayer p1 vs pv OR single player vs comp
 ui.multiPlayer.addEventListener('click', multiplayerMode);
+ui.singlePlayer.addEventListener('click', singlePlayerMode);
+ui.backBtn.addEventListener('click', backBtn); 
 
-//singlePlayer Mode => p1 vs comp
 
 //loop through pawns
 for(let pawn of ui.pawns){
@@ -335,7 +366,4 @@ for(let pawn of ui.pawns){
 for(let slot of ui.slots){
   slot.addEventListener('click', movePawn);
 }
-
-//play-again btn
-ui.back.addEventListener('click', back); 
 

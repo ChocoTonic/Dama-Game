@@ -10,11 +10,12 @@ const selectPawn = function(e){
   if(e.target.classList.contains("pawn") && 
         player.isOwner(pawn) &&
           board.canSelectPawn(player, pawn) &&
-            board.gameOver === false
+            board.gameOver === false &&
+              player.isComputer === false
       ){
     
-    ui.dehighlightEls(ui.slots, "highlight-slot");
-    ui.dehighlightEls(ui.pawns, "highlight-pawn");
+    // ui.dehighlightEls(ui.slots, "highlight-slot");
+    // ui.dehighlightEls(ui.pawns, "highlight-pawn");
     // console.log('target ', e.target);
     // console.log('this ', this);
     board.actualPawn = this;
@@ -52,8 +53,8 @@ const movePawn = function(e){
   if(board.actualPawn && 
       slot.classList.contains('slot') &&
         board.freeSlot(slot) &&
-          board.isPossibleMove(board.actualPossibleMoves, slot)){
-
+          board.isPossibleMove(board.actualPossibleMoves, slot)
+    ){
     
     board.movePawn(board.actualPawn, this, player)    
     // this.appendChild(board.actualPawn);
@@ -84,6 +85,19 @@ const movePawn = function(e){
     
   }//end if parent
 
+  //after move => if computer's turn  then automate move
+  if(board.turnOfPlayer.isComputer === true &&
+      board.gameOver === false){
+    const computer = board.turnOfPlayer;
+
+    //auto select pawn after 5ms
+    const ComputerTarget = setTimeout(() => {board.selectComputerPawn(computer.pawns)}, 1000); 
+
+    //move computer pawn after 5ms
+    setTimeout(() => {board.moveComputerPawn(ComputerTarget)}, 2000); 
+        
+    }//end if computer's turn
+
 }//end movepawn
 
 
@@ -100,14 +114,34 @@ const multiplayerMode = function(e){
   //set first turn to player1
   board.turnOfPlayer = board.players[0];
 
-  //render multiplayer state
-  ui.renderState('multiplayer');
+  //render state
+  ui.renderState('startGame');
 
   e.preventDefault();
 } //end multiplayerMode
 
-//back btn
-const back = function(e){
+//start singlePlayerMode
+const singlePlayerMode = function(e){
+  const player1 = new Player('player-1', 
+                          false, 
+                          board.player1Pawns);
+  const player2 = new Player('Computer', 
+                          true, 
+                          board.player2Pawns);
+
+  //reference players on board.
+  board.players.push(player1, player2);
+  //set first turn to player1
+  board.turnOfPlayer = board.players[0];
+
+  //render state
+  ui.renderState('startGame');
+  
+  e.preventDefault();
+}//end singlePlayerMode
+
+
+const backBtn = function(e){
   location.reload();
   e.preventDefault();
 }//end back btn
