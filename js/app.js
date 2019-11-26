@@ -133,16 +133,23 @@ class Board{
                           || ComputerPawns[Math.floor(Math.random()*ComputerPawns.length)];
 
     const UITargetPawn = ui.getUIPawn(targetPawn);
-    console.log(targetPawn); 
-    console.log(UITargetPawn);
-    ui.highlightPawn(UITargetPawn);
-   
+    // console.log(targetPawn); 
+    // console.log(UITargetPawn);
+    
+    return UITargetPawn;
   }//end selectComputerPawn
   
   moveComputerPawn(){
 
     console.log('will move computer pawn shortly ==> script is missing');
   }// end move computer pawn
+
+  getNextComputerMove(pawn, moves){
+
+    const nextMove = moves[Math.floor(Math.random() * moves.length)];
+
+    return nextMove;
+  }//end getNextComputerMove
 
   movePawn(targetPawn, slot, player){
     
@@ -184,21 +191,20 @@ class Board{
   }//end movePawn
 
   getPossibleMoves(targetPawn, player, UIslots){
-    //this needs some thinking
     
     const targetPawnID = parseInt(targetPawn.dataset.id, 10);
-    //if pawn is not invoked yet then invoke in any free slot
+    //if pawn is not invoked yet then it can move to any free slot
     for(let pawn of player.pawns){
       if(pawn.id === targetPawnID && pawn.invoked === false){
         return Array.from(UIslots).filter(UIslot => this.availableSlots.includes(parseInt(UIslot.dataset.id, 10)));
       }
     }
-    //else 
+    //else if pawn was invoked then moves are restricted
     //get parent slot of actual pawn
     const parentSlotID = parseInt(targetPawn.parentElement.dataset.id, 10);
     
     let possibleMoves;
-    // get possibleMoves of actual pawn
+    // get possibleMoves of actual pawn according to parent slot
     for(let slot of this.slots){
       if(slot.id === parentSlotID){
         possibleMoves = slot.possibleMoves;

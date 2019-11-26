@@ -22,13 +22,14 @@ const selectPawn = function(e){
 
     //highlights slots and pawn
     
-    ui.highlightPawn(board.actualPawn, "highlight-pawn");
+    ui.highlightPawn(board.actualPawn);
     
     //possible moves === UIslots
     const UIpossibleMoves = board.getPossibleMoves(pawn, player, ui.slots);
     
-    //console.log('possible moves', possibleMoves);
+    //console.log('possible moves', UIpossibleMoves);
     //console.log(UIpossibleMoves);
+    //convert possible moves from UI to data 
     board.actualPossibleMoves = Array.from(UIpossibleMoves).map(slot => parseInt(slot.dataset.id, 10));
 
     //console.log(board.actualPossibleMoves);
@@ -53,7 +54,8 @@ const movePawn = function(e){
   if(board.actualPawn && 
       slot.classList.contains('slot') &&
         board.freeSlot(slot) &&
-          board.isPossibleMove(board.actualPossibleMoves, slot)
+          board.isPossibleMove(board.actualPossibleMoves, slot) &&
+            player.isComputer === false
     ){
     
     board.movePawn(board.actualPawn, this, player)    
@@ -83,20 +85,63 @@ const movePawn = function(e){
       //console.log('turn switched to player ', board.turnOfPlayer.username);
     }
     
-  }//end if parent
+  }//end if player move 
 
   //after move => if computer's turn  then automate move
   if(board.turnOfPlayer.isComputer === true &&
       board.gameOver === false){
+    console.log("computer's turn");
     const computer = board.turnOfPlayer;
+    
+    //cpu select random pawn
+    let computerPawn = board.selectComputerPawn(computer.pawns);
+    //console.log(computerPawn);
 
-    //auto select pawn after 5ms
-    const ComputerTarget = setTimeout(() => {board.selectComputerPawn(computer.pawns)}, 1000); 
+    ui.highlightPawn(computerPawn);
+    
+    //get possible moves == UIslots
+    let UIpossibleMoves = board.getPossibleMoves(computerPawn, computer, ui.slots);
+    
+    //if selected pawn has no possible move then choose another one    
+    let performance = 0   
+    while(UIpossibleMoves.length === 0){
+      
+      performance ++;
+      computerPawn = board.selectComputerPawn(computer.pawns);
+      UIpossibleMoves = board.getPossibleMoves(computerPawn, computer, ui.slots);
+      
+      if(performance > 1000){
+        console.log('performance Error : slow script');
+        break;
+      }
+    }
+    
+    //convert possible moves from UI to data 
+    // board.actualPossibleMoves = Array.from(UIpossibleMoves).map(slot => parseInt(slot.dataset.id, 10));
+    // console.log(board.actualPossibleMoves);
 
-    //move computer pawn after 5ms
-    setTimeout(() => {board.moveComputerPawn(ComputerTarget)}, 2000); 
-        
-    }//end if computer's turn
+    ui.highlightTargetSlots(UIpossibleMoves, "highlight-slot");
+
+    //get computer move
+    const nextMove = board.getNextComputerMove(computerPawn, UIpossibleMoves);
+    
+    //move pawn
+    board.movePawn(computerPawn, nextMove, computer);
+    
+    //check if computer isWinner
+    if(board.isWinner(computer)){
+      
+      board.gameOver = true;
+      ui.celebrateWinner(computer);
+    }else{
+      //switch turn 
+      board.turnOfPlayer = (board.turnOfPlayer === board.players[0]) ?
+                            board.players[1] :
+                            board.players[0];
+      //console.log('turn switched to player ', board.turnOfPlayer.username);
+    }
+
+    }//end if cpu move
 
 }//end movepawn
 
