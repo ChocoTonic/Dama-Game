@@ -13,7 +13,9 @@ const selectPawn = function(e){
             board.gameOver === false &&
               player.isComputer === false
       ){
-    
+
+    ui.dehighlightEls(ui.slots, "highlight-slot");
+    ui.dehighlightEls(ui.pawns, "highlight-pawn");
     // ui.dehighlightEls(ui.slots, "highlight-slot");
     // ui.dehighlightEls(ui.pawns, "highlight-pawn");
     // console.log('target ', e.target);
@@ -101,7 +103,7 @@ const movePawn = function(e){
     
     //get possible moves == UIslots
     let UIpossibleMoves = board.getPossibleMoves(computerPawn, computer, ui.slots);
-    
+
     //if selected pawn has no possible move then choose another one    
     let performance = 0   
     while(UIpossibleMoves.length === 0){
@@ -127,6 +129,9 @@ const movePawn = function(e){
     
     //move pawn
     board.movePawn(computerPawn, nextMove, computer);
+
+    ui.dehighlightEls(ui.slots, "highlight-slot");
+    ui.dehighlightEls(ui.pawns, "highlight-pawn");
     
     //check if computer isWinner
     if(board.isWinner(computer)){
