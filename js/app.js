@@ -133,8 +133,6 @@ class Board{
                           || ComputerPawns[Math.floor(Math.random()*ComputerPawns.length)];
 
     const UITargetPawn = ui.getUIPawn(targetPawn);
-    // console.log(targetPawn); 
-    // console.log(UITargetPawn);
     
     return UITargetPawn;
   }//end selectComputerPawn
@@ -170,7 +168,6 @@ class Board{
         pawn.slot = slotID;
       }
     }
-    //console.log(`${player.username} Pawns => `, player.pawns);
 
     //if pawn was invoked update value to true
     for(let pawn of player.pawns){
@@ -186,8 +183,7 @@ class Board{
     (index > -1) ?
       this.availableSlots.splice(index, 1) :
         console.log('something went wrong');
-    
-    //console.log("available slots ",  this.availableSlots);
+
   }//end movePawn
 
   getPossibleMoves(targetPawn, player, UIslots){
@@ -253,8 +249,7 @@ class Player{
     
     const targetId = parseInt(pawnTarget.dataset.id, 10);
     const playerPawnsIds = this.pawns.map(pawn => pawn.id);
-    // console.log(playerPawnsIds);
-    // console.log(targetId);
+
     return playerPawnsIds.includes(targetId);
   }
 }

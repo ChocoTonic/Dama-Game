@@ -16,32 +16,19 @@ const selectPawn = function(e){
 
     ui.dehighlightEls(ui.slots, "highlight-slot");
     ui.dehighlightEls(ui.pawns, "highlight-pawn");
-    // ui.dehighlightEls(ui.slots, "highlight-slot");
-    // ui.dehighlightEls(ui.pawns, "highlight-pawn");
-    // console.log('target ', e.target);
-    // console.log('this ', this);
+    
     board.actualPawn = this;
 
     //highlights slots and pawn
-    
     ui.highlightPawn(board.actualPawn);
     
     //possible moves === UIslots
     const UIpossibleMoves = board.getPossibleMoves(pawn, player, ui.slots);
     
-    //console.log('possible moves', UIpossibleMoves);
-    //console.log(UIpossibleMoves);
     //convert possible moves from UI to data 
     board.actualPossibleMoves = Array.from(UIpossibleMoves).map(slot => parseInt(slot.dataset.id, 10));
 
-    //console.log(board.actualPossibleMoves);
     ui.highlightTargetSlots(UIpossibleMoves, "highlight-slot");
-    // this.classList.add("highlight-pawn");
-    // for(slot of ui.slots){
-    //   slot.classList.add('highlight-slot');
-    // }
-    
-    // console.log('actual ', board.actualPawn);
   }//end if parent
   
   
@@ -61,17 +48,11 @@ const movePawn = function(e){
     ){
     
     board.movePawn(board.actualPawn, this, player)    
-    // this.appendChild(board.actualPawn);
   
     //remove highlight
-    // console.log('dehiglight slots')
     ui.dehighlightEls(ui.slots, "highlight-slot");
     ui.dehighlightEls(ui.pawns, "highlight-pawn");
-    // for(slot of ui.slots){
-    //   slot.classList.remove("highlight-slot");
-    //   board.actualPawn.classList.remove("highlight-pawn");
-    // }
-    // console.log(board.actualPawn);
+
     board.actualPawn = false;
 
     //check if player isWinner
@@ -84,7 +65,7 @@ const movePawn = function(e){
       board.turnOfPlayer = (board.turnOfPlayer === board.players[0]) ?
                             board.players[1] :
                             board.players[0];
-      //console.log('turn switched to player ', board.turnOfPlayer.username);
+
     }
     
   }//end if player move 
@@ -105,7 +86,7 @@ const movePawn = function(e){
     let UIpossibleMoves = board.getPossibleMoves(computerPawn, computer, ui.slots);
 
     //if selected pawn has no possible move then choose another one    
-    let performance = 0   
+    let performance = 0;   
     while(UIpossibleMoves.length === 0){
       
       performance ++;
@@ -117,10 +98,6 @@ const movePawn = function(e){
         break;
       }
     }
-    
-    //convert possible moves from UI to data 
-    // board.actualPossibleMoves = Array.from(UIpossibleMoves).map(slot => parseInt(slot.dataset.id, 10));
-    // console.log(board.actualPossibleMoves);
 
     ui.highlightTargetSlots(UIpossibleMoves, "highlight-slot");
 
@@ -143,7 +120,7 @@ const movePawn = function(e){
       board.turnOfPlayer = (board.turnOfPlayer === board.players[0]) ?
                             board.players[1] :
                             board.players[0];
-      //console.log('turn switched to player ', board.turnOfPlayer.username);
+
     }
 
     }//end if cpu move
