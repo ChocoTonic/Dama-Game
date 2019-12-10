@@ -11,8 +11,11 @@ html, body{
 
 #board{
   height: 300px;
-  width: 600px;
-  background: url("../img/background.jpg") no-repeat center center;
+  min-width: 400px;
+  width: 80%;
+  /* background: url("../img/background.jpg") no-repeat center center; */
+  position: relative;
+  background: black;
   display:flex;
   flex-direction: column;
   justify-content: space-between;
@@ -20,6 +23,8 @@ html, body{
   border:1px yellow dashed;
   justify-self: center;
 }
+
+
 
 
 #board-view{
