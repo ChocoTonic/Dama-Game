@@ -74,7 +74,10 @@ html, body{
 }
 
 #player1-score > .avatar{
-  background: url(../img/player1.svg) no-repeat center center;
+  background: url(../img/player1.svg) no-repeat center center/ cover;
+}
+#player2-score > .avatar{
+  background: url(../img/cpu.png) no-repeat center center/cover;
 }
 
 #board{
