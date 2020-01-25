@@ -1,3 +1,5 @@
+
+
 *{
   margin:0;
   padding:0;
@@ -5,61 +7,91 @@
 }
 
 html, body{
-  background:#c4c4c4;
+  background:#3598db;
   height:100%;
+  color:#ffffff;
+}
+.device-type{ 
+    position:fixed;
+    left:0;
+    bottom:0;
+    /*height:2rem;*/
+  }
+
+.container{
+  width:90%;
+  margin:0px auto;
+  min-width:400px;
+  height:100%;
+  /*border: 1px solid white;*/
+}
+.home-title{
+}
+
+.home-btn{
+  background:none;
+  border: 0.1rem solid #fff;
+  border-radius:0.5rem;
+  color: #ffffff;
+  font-size:1.2rem;
+}
+.home-btn:hover, .back-btn:hover{
+  transform: scale(1.1);
+  font-weight:bold;
+}
+
+
+
+
+#home-view{
+  display:flex;
+  flex-direction:column;
+  justify-content: space-between;
+  align-items: center;
+  height:70%
+
+  /*border: 1px solid white;*/
+}
+.bg-white{
+  background: #f4f4f4;
+}
+#home-view > div{
+  margin:10px;
+}
+
+#board-view{
+  border:1px red dashed;
+  display:grid;
+}
+
+#scoreboard{
+    border:1px green solid;
+    
+}
+
+.avatar{
+  border: 1px solid #fff;
+}
+
+#player1-score > .avatar{
+  background: url(../img/player1.svg) no-repeat center center;
 }
 
 #board{
-  height: 300px;
-  min-width: 400px;
-  width: 80%;
   /* background: url("../img/background.jpg") no-repeat center center; */
   position: relative;
   background: black;
   display:flex;
   flex-direction: column;
   justify-content: space-between;
-  grid-area: board;
-  border:1px yellow dashed;
-  justify-self: center;
-}
-
-
-
-
-#board-view{
-  display:grid;
-  grid-template-columns: min-content auto min-content; 
-  grid-template-areas: "pawns1 board pawns2"
-                       "footer footer footer" 
-  ;
-  border:1px red dashed;
-  width:100%;
-  margin-top:1rem;
-}
-#home-view{
-  display:flex;
-  flex-direction:column;
-  align-items: center;
+  border:2px yellow dashed;
   
 }
-.board-footer{
-  grid-area: footer;
-  text-align:center;
-  margin-top:0.5rem;
-}
-.player1-pawns{
-  grid-area: pawns1;
-}
-.player2-pawns{
-  grid-area: pawns2;
-}
-.container{
-
-  border:1px blue dashed;
-  width:90%;
-  margin:5px auto;
-  min-width:750px;
+.pawns-container{
+    display:flex;
+    justify-content:space-between;
+    border:1px green solid;
+    align-items:center;
 }
 
 .slot{
@@ -78,23 +110,15 @@ html, body{
   /* align-self: center; */
 }
 
-.pawns-container{
-  height:50%;
-  display:flex;
-  flex-direction:column;
-  justify-content:space-around;
-  border:1px green solid;
-  align-items:center;
-  width: 55px;
-  align-self:center;
-}
 .pawn{
   height:40px;
   width:40px;
   background:steelblue;
   border-radius:50%;
 }
-
+#board-footer{
+  border:1px yellow solid;
+}
 .highlight-slot{
   /* background: gray; */
   border:2px black dashed;
@@ -106,7 +130,9 @@ html, body{
   border:2px black dashed;
   transform: scale(1.3);
 }
-
+.player1-pawn{
+  background:black;
+}
 .player2-pawn{
   background:green;
 }
@@ -115,3 +141,8 @@ html, body{
   background:red;
   
 }
+.btn{
+  cursor: pointer;
+}
+
+

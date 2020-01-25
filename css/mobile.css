@@ -1,0 +1,126 @@
+/*mobile/smartphones*/
+
+@media only screen and (max-width: 500px){
+	.home-title{
+  		margin-top: 2rem;
+	}
+	.home-btn{
+		  height: 3rem;
+  		width: 12rem;
+		  margin-bottom: 1rem;
+		 	padding:0rem 2rem;
+	}
+	.device-type:before{
+		content: "Mobile";
+	}
+	.container{
+		border:none;
+	}
+	#board-view{
+		border:none;
+		height:100%;
+		grid-template-rows: 20% auto 2fr 1fr;
+		grid-template-columns: 1fr 1fr 1fr;
+		grid-template-areas: 	"score score score"
+													"board board board"
+		                     	"pawns1 . pawns2"
+		                     	"footer footer footer";
+	}
+	#scoreboard{
+		border: none;
+		display:flex;
+		flex-direction:row;
+		justify-content: space-between;
+		grid-area: score;
+	}
+	.player-score{
+		/* border: 1px yellow dashed; */
+		width:45%;
+		display:flex;
+		
+	}
+	#player1-score{
+		flex-direction: row;
+	}
+	#player2-score{
+		flex-direction: row-reverse;
+		text-align: right;
+	}
+	.avatar{
+		width:80px;
+		height:80px;
+		flex:1;
+	}
+	.score{
+		/* border:1px black solid; */
+		flex:1;
+		
+	}
+	.name{
+		height:30%;
+		width:100%;
+		background:#333;
+		color: #f4f4f4;
+		font-weight:bold;
+		/* border: 1px solid #f4f4f4; */
+		border: 1px solid #fff;
+		border-radius: 0 0 30% 0;
+	}
+	.name > p{
+		font-size: 0.8rem;
+		/* background:red; */
+		height:100%;
+		padding:7% 0;
+		padding-left:5%;
+	}
+	#player2-score > .score > .name{
+		border-radius: 0 0 0 30%;
+	}
+	#player2-score > .score > .name >p{
+		padding-right:5%;
+		
+	}
+
+	.points{
+		font-size:2.5rem;
+		font-weight:bold;
+		padding: 0 5px;
+	}
+	#board{
+		border: none;
+		width: 400px;
+		height: 300px;
+		grid-area: board;
+		background: url(../img/board-mobile.jpg) no-repeat center center;
+	}
+	.pawns-container{
+    flex-direction: row;
+    width:150px;
+	}
+	.player1-pawns{
+  	grid-area: pawns1;
+	}
+	.player2-pawns{
+  	grid-area: pawns2;
+	}
+	.pawns-container{
+		border:none;
+	}
+	#board-footer{
+		text-align: center;
+	  grid-area: footer;
+	  border:none;
+	  margin-top:0.5rem;
+	}
+	.back-btn{
+
+	  background: #333;
+	  color: #f4f4f4;
+	  padding: 0.4rem 1.2rem;
+	  border-radius:0.3rem;
+	  font-weight:bold;
+	  border:none;
+	  /*font-weight:bold;*/
+
+	}
+}
