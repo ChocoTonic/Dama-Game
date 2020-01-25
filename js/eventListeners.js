@@ -72,9 +72,11 @@ const movePawn = function(e){
 
   //after move => if computer's turn  then automate move
   if(board.turnOfPlayer.isComputer === true &&
-      board.gameOver === false){
+      board.gameOver === false &&
+      !board.computerCurrentlyPlaying){
     console.log("computer's turn");
     const computer = board.turnOfPlayer;
+    board.computerCurrentlyPlaying = true;
     
     //cpu select random pawn
     let computerPawn = board.selectComputerPawn(computer.pawns);
@@ -104,24 +106,41 @@ const movePawn = function(e){
     //get computer move
     const nextMove = board.getNextComputerMove(computerPawn, UIpossibleMoves);
     
-    //move pawn
-    board.movePawn(computerPawn, nextMove, computer);
+    //move pawn  after some delay to give the cpu some life
 
-    ui.dehighlightEls(ui.slots, "highlight-slot");
-    ui.dehighlightEls(ui.pawns, "highlight-pawn");
-    
-    //check if computer isWinner
-    if(board.isWinner(computer)){
+    const delay = Promise.resolve(500);
+
+    delay.then(function(v){
+      return new Promise(function(resolve, reject){
+        setTimeout(function(){
+          board.movePawn(computerPawn, nextMove, computer);
+
+          ui.dehighlightEls(ui.slots, "highlight-slot");
+          ui.dehighlightEls(ui.pawns, "highlight-pawn");
+          resolve(v);
+        }, v);
+      });//end return
+
+    }).then(function(v){
+
+      console.log(`this code is ran after ${v}MS using the beauty of Promises`);
+      //check if computer isWinner
+      if(board.isWinner(computer)){
       
-      board.gameOver = true;
-      ui.celebrateWinner(computer);
-    }else{
-      //switch turn 
-      board.turnOfPlayer = (board.turnOfPlayer === board.players[0]) ?
-                            board.players[1] :
-                            board.players[0];
+        board.gameOver = true;
+        ui.celebrateWinner(computer);
+      }else{
+        //switch turn 
+        board.turnOfPlayer = (board.turnOfPlayer === board.players[0]) ?
+                              board.players[1] :
+                              board.players[0];
+        board.computerCurrentlyPlaying = false;                      
+      }
+    });//end then
 
-    }
+    
+    
+    
 
     }//end if cpu move
 

@@ -23,6 +23,7 @@ class Board{
     this.winner;
     this.actualPawn = false;
     this.actualPossibleMoves = false;
+    this.computerCurrentlyPlaying = false;
     this.slots = [
       {
         id: 1,
