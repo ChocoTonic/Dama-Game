@@ -87,6 +87,7 @@
 		padding: 0 5px;
 	}
 	#board{
+		margin:0 auto;
 		border: none;
 		width: 400px;
 		height: 300px;
@@ -97,10 +98,10 @@
     flex-direction: row;
     width:150px;
 	}
-	.player1-pawns{
+	#player1-pawns-container{
   	grid-area: pawns1;
 	}
-	.player2-pawns{
+	#player2-pawns-container{
   	grid-area: pawns2;
 	}
 	.pawns-container{

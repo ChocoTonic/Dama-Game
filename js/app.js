@@ -14,6 +14,7 @@ class Board{
       [1, 5, 9],
       [3, 5, 7]
       ];
+    this.gameOnPause = false;
     this.players = [];
     this.turnOfPlayer = '';
     // this.allSlots = [1, 2, 3, 4, 5, 6, 7, 8, 9];
@@ -234,6 +235,23 @@ class Board{
     return possibleMoves.includes(targetSlotID);
   }
 
+  resetValues(){
+    this.availableSlots = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+    this.busySlots = [];
+    this.gameOver = false;
+    this.actualPawn = false;
+    this.actualPossibleMoves = false;
+    this.computerCurrentlyPlaying = false;
+    //turn invoked to false for player pawns
+    for(let pawn of this.players[0].pawns){
+      pawn.invoked = false;
+      pawn.slot = false;
+    }
+    for(let pawn of this.players[1].pawns){
+      pawn.invoked = false;
+      pawn.slot = false;
+    }
+  }
 }//end Board class
 
 
@@ -241,6 +259,7 @@ class Player{
   constructor(username, isComputer, pawns){
     this.username = username;
     this.isComputer = isComputer;
+    this.score = 0;
     //this.slots = [];
     this.pawns = pawns;
     this.winningSlots = [];
@@ -253,6 +272,7 @@ class Player{
 
     return playerPawnsIds.includes(targetId);
   }
+
 }
 
 
@@ -261,12 +281,18 @@ class UI{
     this.board = document.querySelector('#board');
     this.slots = document.querySelectorAll('.slot');
     this.pawns = document.querySelectorAll('.pawn');
+    this.player1PawnsContainer = document.querySelector('#player1-pawns-container');
+    this.player2PawnsContainer = document.querySelector('#player2-pawns-container')
     this.backBtn = document.querySelector('#back');
     this.boardView = document.querySelector('#board-view');
     this.homeView = document.querySelector('#home-view');
     this.singlePlayer = document.querySelector('#single-player');
     this.multiPlayer = document.querySelector('#multiplayer');
-  }
+    this.player1Score = document.querySelector("#p1-score-output");
+    this.player2Score = document.querySelector("#p2-score-output");
+    this.roundCelebration = document.querySelector("#round-celebration");
+  }//end cosntructor
+
   highlightTargetSlots(els, className){
     
     for(let el of els){
@@ -303,17 +329,19 @@ class UI{
   }//end getUIPawn
 
 
-  celebrateWinner(player){
-    console.log(`congratualtions ${player.username} for the Win`);
+  celebrateRoundWinner(player){
+    //highlight pawns/slots
     for(const pawn of player.pawns){
       let slotID = pawn.slot;
       for(const UIslot of this.slots){
         if(slotID == UIslot.dataset.id){
-          UIslot.classList.add('winner-slot');
+          UIslot.classList.add('winner-slots');
         }
       }
     }
-  }//end celebrateWinner
+    //show round winning celebration
+    this.roundCelebration.style.display = "block";
+  }//end celebrateRoundWinner
 
   
   renderState(state){
@@ -340,8 +368,25 @@ class UI{
         console.log("something went wrong on state manager");
     }//end switch
   }//end renderState
+
+  renderScore(player1, player2){
+    this.player1Score.textContent = player1.score;
+    this.player2Score.textContent = player2.score;
+  }
+
+  resetBoard(){
+    this.roundCelebration.style.display = "none";
+    //clear out pawns
+    for(let pawn of this.pawns){
+      if(pawn.classList.contains("player1-pawn")){
+        this.player1PawnsContainer.appendChild(pawn);
+      }else{
+        this.player2PawnsContainer.appendChild(pawn);
+      }
+    }
+  }
   
-}
+}//end class UI
 
 //new UI inst
 const board = new Board;

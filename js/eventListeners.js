@@ -11,6 +11,7 @@ const selectPawn = function(e){
         player.isOwner(pawn) &&
           board.canSelectPawn(player, pawn) &&
             board.gameOver === false &&
+            board.gameOnPause === false &&
               player.isComputer === false
       ){
 
@@ -58,10 +59,32 @@ const movePawn = function(e){
     //check if player isWinner
     if(board.isWinner(player)){
       
-      board.gameOver = true;
-      ui.celebrateWinner(player);
+      board.gameOnPause = true;
+
+      ui.celebrateRoundWinner(player);
+      //increment score
+      player.score++;
+      ui.renderScore(board.players[0], board.players[1]);
+      //if score is < 3 then resetboard and continue game after some delay
+      if(player.score < 3){
+        const playAgainIn = Promise.resolve(2000);
+
+        playAgainIn.then(function(v){
+          setTimeout(function(){
+            ui.resetBoard();
+            ui.dehighlightEls(ui.slots, "winner-slots");
+            board.resetValues();
+            board.gameOnPause = false;
+          }, v);
+        });//end synchronous promise
+        
+      }else{
+        board.gameOver = true;
+        ui.celebrateGameWinner(player);
+      }
+      
     }else{
-      //switch turn 
+      
       board.turnOfPlayer = (board.turnOfPlayer === board.players[0]) ?
                             board.players[1] :
                             board.players[0];
@@ -73,6 +96,7 @@ const movePawn = function(e){
   //after move => if computer's turn  then automate move
   if(board.turnOfPlayer.isComputer === true &&
       board.gameOver === false &&
+      board.gameOnPause === false &&
       !board.computerCurrentlyPlaying){
     console.log("computer's turn");
     const computer = board.turnOfPlayer;
@@ -120,15 +144,38 @@ const movePawn = function(e){
           resolve(v);
         }, v);
       });//end return
-
     }).then(function(v){
-
-      console.log(`this code is ran after ${v}MS using the beauty of Promises`);
       //check if computer isWinner
       if(board.isWinner(computer)){
       
-        board.gameOver = true;
-        ui.celebrateWinner(computer);
+        board.gameOnPause = true;
+        ui.celebrateRoundWinner(computer);
+        //increment score
+        computer.score++;
+        ui.renderScore(board.players[0], board.players[1]);
+        //check if cpu is Gamewinner score =3
+        if(player.score < 3){
+          const nextRoundIn = Promise.resolve(2000);
+  
+          nextRoundIn.then(function(v){
+            setTimeout(function(){
+              ui.resetBoard();
+              ui.dehighlightEls(ui.slots, "winner-slots");
+              board.gameOnPause = false;
+              board.resetValues();
+            }, v);
+            
+          });//end synchronous promise
+          //switch turn 
+          board.turnOfPlayer = (board.turnOfPlayer === board.players[0]) ?
+          board.players[1] :
+          board.players[0];
+
+        }else{
+          board.gameOver = true;
+          ui.celebrateGameWinner();
+        }
+
       }else{
         //switch turn 
         board.turnOfPlayer = (board.turnOfPlayer === board.players[0]) ?

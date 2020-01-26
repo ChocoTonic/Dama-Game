@@ -27,14 +27,18 @@
           <div class="avatar"></div>
           <div class="score">
             <div class="name"><p>Player 1</p></div>
-            <div class="points"><p>1</p></div>
+            <div class="points">
+              <p id="p1-score-output">0</p>
+            </div>
           </div>
         </div>
         <div id="player2-score" class="player-score">
           <div class="avatar"></div>
           <div class="score ">
             <div class="name"><p>Computer</p></div>
-            <div class="points "><p>0</p></div>
+            <div class="points ">
+              <p id="p2-score-output">0</p>
+            </div>
           </div>
         </div>
       </div>
@@ -58,16 +62,17 @@
         </div>
         <!-- end slots -->
       </div><!-- end board -->
-      <div class="pawns-container player1-pawns">
+      <div id="player1-pawns-container" class="pawns-container ">
           <div id="" class="pawn player1-pawn" data-id ="1"></div>
           <div id="" class="pawn player1-pawn" data-id ="2"></div>
           <div id="" class="pawn player1-pawn" data-id ="3"></div>
       </div>
-      <div class="pawns-container player2-pawns">
+      <div id="player2-pawns-container" class="pawns-container ">
           <div id="" class="pawn player2-pawn" data-id ="4"></div>
           <div id="" class="pawn player2-pawn" data-id ="5"></div>
           <div id="" class="pawn player2-pawn" data-id ="6"></div>
       </div>
+      <div id="round-celebration"></div>
       <div id="board-footer">
         <input type="button" value="BACK" id="back" class="btn back-btn">
         
