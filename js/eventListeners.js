@@ -2,11 +2,8 @@
 const selectPawn = function(e){
 
   let player = board.turnOfPlayer;
-  
-  
   let pawn = e.target;
-  //check if player own the pawn
-  // console.log(pawn);
+  //check if player owns the pawn
   
   if(e.target.classList.contains("pawn") && 
         player.isOwner(pawn) &&
@@ -63,6 +60,7 @@ const movePawn = function(e){
       board.gameOnPause = true;
 
       ui.celebrateRoundWinner(player);
+
       //increment score
       player.score++;
       ui.renderScore(board.players[0], board.players[1]);
@@ -79,7 +77,7 @@ const movePawn = function(e){
         });//end synchronous promise
       
     }else{
-      
+      //switch turn
       board.turnOfPlayer = (board.turnOfPlayer === board.players[0]) ?
                             board.players[1] :
                             board.players[0];
@@ -96,13 +94,10 @@ const movePawn = function(e){
 
     
     const computer = board.turnOfPlayer;
-    
     board.computerCurrentlyPlaying = true;
     
     //cpu select random pawn
     let computerPawn = board.selectComputerPawn(computer.pawns);
-    //console.log(computerPawn);
-
     ui.highlightPawn(computerPawn);
     
     //get possible moves == UIslots
@@ -116,7 +111,7 @@ const movePawn = function(e){
       computerPawn = board.selectComputerPawn(computer.pawns);
       UIpossibleMoves = board.getPossibleMoves(computerPawn, computer, ui.slots);
       
-      if(performance > 1000){
+      if(performance > 2000){
         console.log('performance Error : slow script');
         break;
       }
@@ -128,20 +123,20 @@ const movePawn = function(e){
     const nextMove = board.getNextComputerMove(computerPawn, UIpossibleMoves);
     
     //move pawn  after some delay to give the cpu some life
-
     const delay = Promise.resolve(1000);
 
     delay.then(function(v){
       return new Promise(function(resolve, reject){
+
         setTimeout(function(){
           board.movePawn(computerPawn, nextMove, computer);
-
           ui.dehighlightEls(ui.slots, "highlight-slot");
           ui.dehighlightEls(ui.pawns, "highlight-pawn");
           resolve(v);
         }, v);
-      });//end return
+      });//end then
     }).then(function(v){
+
       //check if computer isWinner
       if(board.isWinner(computer)){
       
@@ -150,24 +145,24 @@ const movePawn = function(e){
         //increment score
         computer.score++;
         ui.renderScore(board.players[0], board.players[1]);
-        //check if cpu is Gamewinner score =3
         
-          const nextRoundIn = Promise.resolve(2000);
+        const nextRoundIn = Promise.resolve(2000);
   
-          nextRoundIn.then(function(v){
-            setTimeout(function(){
-              ui.resetBoard();
-              ui.dehighlightEls(ui.slots, "winner-slots");
-              board.gameOnPause = false;
-              board.resetValues();
-            }, v);
-          });//end synchronous promise
+        nextRoundIn.then(function(v){
+          setTimeout(function(){
 
-          //switch turn 
-          board.turnOfPlayer = (board.turnOfPlayer === board.players[0]) ?
-          board.players[1] :
-          board.players[0];
-          ui.PlayerTurnAlert(board.turnOfPlayer);
+            ui.resetBoard();
+            ui.dehighlightEls(ui.slots, "winner-slots");
+            board.gameOnPause = false;
+            board.resetValues();
+          }, v);
+        });//end synchronous promise
+
+        //switch turn 
+        board.turnOfPlayer = (board.turnOfPlayer === board.players[0]) ?
+        board.players[1] :
+        board.players[0];
+        ui.PlayerTurnAlert(board.turnOfPlayer);
           
           
 
@@ -182,18 +177,14 @@ const movePawn = function(e){
         
       }
     });//end then
-
-    
-    
-    
-
-    }//end if cpu move
+  }//end if cpu move
 
 }//end movepawn
 
 
 //start multiplayerMode
 const multiplayerMode = function(e){
+
   const player1 = new Player(1, 'player-1', 
                           false, 
                           board.player1Pawns);
@@ -212,8 +203,10 @@ const multiplayerMode = function(e){
   e.preventDefault();
 } //end multiplayerMode
 
+
 //start singlePlayerMode
 const singlePlayerMode = function(e){
+  
   const player1 = new Player(1, 'player-1', 
                           false, 
                           board.player1Pawns);

@@ -138,11 +138,6 @@ class Board{
     
     return UITargetPawn;
   }//end selectComputerPawn
-  
-  moveComputerPawn(){
-
-    console.log('will move computer pawn shortly ==> script is missing');
-  }// end move computer pawn
 
   getNextComputerMove(pawn, moves){
 
@@ -362,10 +357,6 @@ class UI{
         this.boardView.style.display = "grid";
         this.homeView.style.display = "none";
         break;
-      //if single player then player1 vs computer
-      case 'showBoard':
-
-        break;
 
       default:
         console.log("something went wrong on state manager");
@@ -409,8 +400,6 @@ const ui = new UI;
 
 //init game
 ui.renderState();
-
-
 
 
 //event Listeners
