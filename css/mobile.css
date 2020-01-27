@@ -114,7 +114,12 @@
 	.slot{
 		width:40px;
 		height: 40px;
+		padding: 0.1rem;
 	}
+	.slot > div{
+		margin: auto;
+	}
+
 	.pawns-container{
     flex-direction: row;
 		width:150px;
@@ -132,8 +137,8 @@
 		border:none;
 	}
 	.pawn{
-		width:40px;
-		height:40px;
+		width:35px;
+		height:35px;
 	}
 	#board-footer{
 		text-align: center;
