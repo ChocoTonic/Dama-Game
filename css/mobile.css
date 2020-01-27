@@ -36,7 +36,7 @@
 		border:none;
 		/* border: 1px red solid; */
 		height:100%;
-		grid-template-rows: 20% auto 2fr 1fr;
+		grid-template-rows: 0.1fr auto 2fr 1fr;
 		grid-template-columns: 1fr 1fr 1fr;
 		grid-template-areas: 	"score score score"
 													"board board board"
@@ -64,15 +64,13 @@
 		text-align: right;
 	}
 	.avatar{
-		width:80px;
-		height:80px;
-		flex:1;
+		
+		flex:0.8;
 	}
 	.score{
-		/* border:1px black solid; */
-		flex:1;
-		
+		flex:1.2;
 	}
+
 	.name{
 		height:35px;
 		width:100%;
@@ -104,7 +102,7 @@
 		padding: 0 5px;
 	}
 	#board{
-		margin:0 auto;
+		margin:5px auto;
 		border: none;
 		width: 300px;
 		height: 225px;
@@ -124,7 +122,7 @@
     flex-direction: row;
 		width:150px;
 		height:60px;
-		margin-top:1rem;
+		margin-top:0;
 	}
 	#player1-pawns-container{
 		grid-area: pawns1;
@@ -144,7 +142,7 @@
 		text-align: center;
 	  grid-area: footer;
 	  border:none;
-	  margin-top:0.5rem;
+	  margin-top:10px;
 	}
 	.back-btn{
 
