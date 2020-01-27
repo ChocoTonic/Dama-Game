@@ -2,24 +2,39 @@
 
 @media only screen and (max-width: 480px){
 	.home-title{
-  		margin-top: 2rem;
+			margin-top: 4rem;
+			font-size: 2rem;
 	}
 	.home-btn{
 		  height: 3rem;
   		width: 12rem;
-		  margin-bottom: 1rem;
-		 	padding:0rem 2rem;
+			margin-bottom: 0.5rem;
+			padding:0rem 2rem;
+			text-align: center;
+	}
+	#home-view{
+		width:100%;
+		margin: auto;
+		padding:0;
+		/* border: 1px green solid; */
+		text-align: center;
+	}
+	#home-buttons{
+		/* border:1px red solid; */
+		width: 100%;
 	}
 	.device-type:before{
 		content: "Mobile";
 	}
 	.container{
+		min-width:300px;
 		/* border:none; */
 		/* border: 1px solid white; */
 	}
 	#board-view{
 		min-width: 300px;
 		border:none;
+		/* border: 1px red solid; */
 		height:100%;
 		grid-template-rows: 20% auto 2fr 1fr;
 		grid-template-columns: 1fr 1fr 1fr;
@@ -91,10 +106,14 @@
 	#board{
 		margin:0 auto;
 		border: none;
-		width: 400px;
-		height: 300px;
+		width: 300px;
+		height: 225px;
 		grid-area: board;
-		background: url(../img/board-mobile.jpg) no-repeat center center;
+		background: url(../img/board-mobile.jpg) no-repeat center center/cover;
+	}
+	.slot{
+		width:40px;
+		height: 40px;
 	}
 	.pawns-container{
     flex-direction: row;

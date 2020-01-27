@@ -51,8 +51,8 @@ html, body{
   flex-direction:column;
   justify-content: space-between;
   align-items: center;
+  align-self: center;
   height:70%;
-  
   /*border: 1px solid white;*/
 }
 .bg-white{
