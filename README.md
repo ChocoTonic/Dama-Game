@@ -13,6 +13,8 @@
 
 I also provided a link to the game in case you wanted to give it a try without downloading my repo, hope you will enjoy it.
 
+---
+
 ## How To Play
 * At the start of the game, each player owns three pawns at hand.
 * Players are only allowed one single move per round.
@@ -29,7 +31,7 @@ I also provided a link to the game in case you wanted to give it a try without d
 ## License & Copyright
 © M.Sylla 
 
-Licensed under the [MIT License](LICENSE).
+Licensed under the [Apache License, Version 2.0](LICENSE).
 
 
 
