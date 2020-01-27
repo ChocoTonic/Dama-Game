@@ -1,32 +1,42 @@
-/*mobile/smartphones*/
+/*desktop*/
 
-@media only screen and (max-width: 480px){
+@media only screen and (min-width: 1201px){
 	.home-title{
-  		margin-top: 2rem;
+			margin-top: 4rem;
+			font-size: 3rem;
 	}
 	.home-btn{
-		  height: 3rem;
-  		width: 12rem;
-		  margin-bottom: 1rem;
-		 	padding:0rem 2rem;
+		height: 4rem;
+		width: 100%;
+		margin-bottom: 0.5rem;
+		padding:0rem 2rem;
+		font-size: 1.5rem;
+		/* border: 1px solid red; */
+	}
+	#home-buttons{
+		/* border: 1px solid green; */
+		width:50%;
 	}
 	.device-type:before{
-		content: "Mobile";
+		content: "Widescreen";
 	}
 	.container{
 		/* border:none; */
 		/* border: 1px solid white; */
 	}
 	#board-view{
-		min-width: 400px;
+		margin: 0 auto;
 		border:none;
+		width:100%;
+		min-width: 460px;
 		height:100%;
 		grid-template-rows: 20% auto 2fr 1fr;
 		grid-template-columns: 1fr 1fr 1fr;
 		grid-template-areas: 	"score score score"
-													"board board board"
-		                     	"pawns1 . pawns2"
-		                     	"footer footer footer";
+													"pawns1 board pawns2"
+													"footer footer footer";
+													 
+		/* border:1px yellow solid; */
 	}
 	#scoreboard{
 		border: none;
@@ -49,17 +59,20 @@
 		text-align: right;
 	}
 	.avatar{
-		width:80px;
-		height:80px;
+		width:250px;
+		height:250px;
 		flex:1;
+	}
+	.thinking-cloud{
+		width:40px;
+		height:40px;
 	}
 	.score{
 		/* border:1px black solid; */
 		flex:1;
-		
 	}
 	.name{
-		height:35px;
+		height:60px;
 		width:100%;
 		background:#333;
 		color: #f4f4f4;
@@ -69,10 +82,10 @@
 		border-radius: 0 0 30% 0;
 	}
 	.name > p{
-		font-size: 0.8rem;
+		font-size: 1.5rem;
 		/* background:red; */
 		height:100%;
-		padding:7% 0;
+		padding:0.9rem 0;
 		padding-left:5%;
 	}
 	#player2-score > .score > .name{
@@ -89,32 +102,45 @@
 		padding: 0 5px;
 	}
 	#board{
-		margin:0 auto;
+		margin:70px auto;
+		margin-bottom:20px;
 		border: none;
-		width: 400px;
-		height: 300px;
+		width: 770px;
+		height: 570px;
 		grid-area: board;
-		background: url(../img/board-mobile.jpg) no-repeat center center;
+		background: url(../img/board-mobile.jpg) no-repeat center center/cover;
+		
+	}
+	.slot{
+		width:100px;
+		height:100px;
+		padding: 0.4rem;
+	}
+	#round-celebration{
+		
 	}
 	.pawns-container{
-    flex-direction: row;
-		width:150px;
-		height:60px;
-		margin-top:1rem;
+    flex-direction: column;
+		width:110px;
+		height:280px;
+		margin-top:10rem;
+		margin: auto;
+		border: 1px solid red;
 	}
 	#player1-pawns-container{
 		grid-area: pawns1;
 		/* border:2px solid yellow; */
 	}
 	#player2-pawns-container{
-  	grid-area: pawns2;
+		grid-area: pawns2;
+		/* border:2px solid yellow; */
 	}
 	.pawns-container{
 		border:none;
 	}
 	.pawn{
-		width:40px;
-		height:40px;
+		width:85px;
+		height:85px;
 	}
 	#board-footer{
 		text-align: center;
@@ -123,10 +149,10 @@
 	  margin-top:0.5rem;
 	}
 	.back-btn{
-
+		font-size:1.5rem;
 	  background: #333;
 	  color: #f4f4f4;
-	  padding: 0.4rem 1.2rem;
+	  padding: 1rem 1.9rem;
 	  border-radius:0.3rem;
 	  font-weight:bold;
 	  border:none;

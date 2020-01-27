@@ -19,11 +19,14 @@ html, body{
   }
 
 .container{
+  padding-top:5px;
   width:90%;
   margin:0px auto;
   min-width:400px;
+  max-width:1500px;
   height:100%;
-  /*border: 1px solid white;*/
+  min-height:500px;
+  /* border: 1px solid white; */
 }
 .home-title{
 }
@@ -48,8 +51,8 @@ html, body{
   flex-direction:column;
   justify-content: space-between;
   align-items: center;
-  height:70%
-
+  height:70%;
+  
   /*border: 1px solid white;*/
 }
 .bg-white{
@@ -70,7 +73,18 @@ html, body{
 }
 
 .avatar{
-  border: 1px solid #fff;
+  border: 2px solid #fff;
+  position: relative;
+}
+.thinking-cloud{
+  position:absolute;
+  left:0;
+  top:0;
+  width: 30px;
+  height:30px;
+  background: url(../img/thinking-right.png) no-repeat center center/cover;
+  display:none;
+  animation: blink 1s infinite ease-in;
 }
 
 #player1-score > .avatar{
@@ -123,7 +137,7 @@ html, body{
   margin:auto;
 }
 #board-footer{
-  border:1px yellow solid;
+  /* border:1px yellow solid; */
 }
 .highlight-slot{
   /* background: gray; */
@@ -142,6 +156,9 @@ html, body{
 .player2-pawn{
   background:green;
 }
+#player2-pawns-container{
+  /* border:1px green solid; */
+}
 
 .winner-slots{
   background:yellow;
@@ -152,10 +169,10 @@ html, body{
 }
 
 #round-celebration{
-  position:fixed;
-  top: 20%;
+  position:absolute;
+  top: 10%;
   left: 10%;
-  height: 270px;
+  height: 80%;
   width: 80%;
   background: url(../img/goal.png) no-repeat center center/cover;  
   z-index: 100;

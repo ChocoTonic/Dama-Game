@@ -256,7 +256,8 @@ class Board{
 
 
 class Player{
-  constructor(username, isComputer, pawns){
+  constructor(id, username, isComputer, pawns){
+    this.id = id;
     this.username = username;
     this.isComputer = isComputer;
     this.score = 0;
@@ -291,6 +292,8 @@ class UI{
     this.player1Score = document.querySelector("#p1-score-output");
     this.player2Score = document.querySelector("#p2-score-output");
     this.roundCelebration = document.querySelector("#round-celebration");
+    this.p1ThinkingCloud = document.querySelector('#p1-thinking-cloud');
+    this.p2ThinkingCloud = document.querySelector('#p2-thinking-cloud');
   }//end cosntructor
 
   highlightTargetSlots(els, className){
@@ -383,6 +386,18 @@ class UI{
       }else{
         this.player2PawnsContainer.appendChild(pawn);
       }
+    }
+  }
+
+  PlayerTurnAlert(player){
+    this.p1ThinkingCloud.style.display = "none";
+    this.p2ThinkingCloud.style.display = "none";
+    
+    console.log(player.id);
+    if(player.id === 1){
+      this.p1ThinkingCloud.style.display = "block";
+    }else{
+      this.p2ThinkingCloud.style.display = "block";
     }
   }
   

@@ -2,7 +2,8 @@
 const selectPawn = function(e){
 
   let player = board.turnOfPlayer;
-  console.log(player.username, " 's turn");
+  
+  
   let pawn = e.target;
   //check if player own the pawn
   // console.log(pawn);
@@ -65,8 +66,7 @@ const movePawn = function(e){
       //increment score
       player.score++;
       ui.renderScore(board.players[0], board.players[1]);
-      //if score is < 3 then resetboard and continue game after some delay
-      if(player.score < 3){
+      
         const playAgainIn = Promise.resolve(2000);
 
         playAgainIn.then(function(v){
@@ -77,18 +77,13 @@ const movePawn = function(e){
             board.gameOnPause = false;
           }, v);
         });//end synchronous promise
-        
-      }else{
-        board.gameOver = true;
-        ui.celebrateGameWinner(player);
-      }
       
     }else{
       
       board.turnOfPlayer = (board.turnOfPlayer === board.players[0]) ?
                             board.players[1] :
                             board.players[0];
-
+      ui.PlayerTurnAlert(board.turnOfPlayer);
     }
     
   }//end if player move 
@@ -98,8 +93,10 @@ const movePawn = function(e){
       board.gameOver === false &&
       board.gameOnPause === false &&
       !board.computerCurrentlyPlaying){
-    console.log("computer's turn");
+
+    
     const computer = board.turnOfPlayer;
+    
     board.computerCurrentlyPlaying = true;
     
     //cpu select random pawn
@@ -132,7 +129,7 @@ const movePawn = function(e){
     
     //move pawn  after some delay to give the cpu some life
 
-    const delay = Promise.resolve(500);
+    const delay = Promise.resolve(1000);
 
     delay.then(function(v){
       return new Promise(function(resolve, reject){
@@ -154,7 +151,7 @@ const movePawn = function(e){
         computer.score++;
         ui.renderScore(board.players[0], board.players[1]);
         //check if cpu is Gamewinner score =3
-        if(player.score < 3){
+        
           const nextRoundIn = Promise.resolve(2000);
   
           nextRoundIn.then(function(v){
@@ -164,24 +161,25 @@ const movePawn = function(e){
               board.gameOnPause = false;
               board.resetValues();
             }, v);
-            
           });//end synchronous promise
+
           //switch turn 
           board.turnOfPlayer = (board.turnOfPlayer === board.players[0]) ?
           board.players[1] :
           board.players[0];
-
-        }else{
-          board.gameOver = true;
-          ui.celebrateGameWinner();
-        }
+          ui.PlayerTurnAlert(board.turnOfPlayer);
+          
+          
 
       }else{
         //switch turn 
         board.turnOfPlayer = (board.turnOfPlayer === board.players[0]) ?
                               board.players[1] :
                               board.players[0];
-        board.computerCurrentlyPlaying = false;                      
+
+        board.computerCurrentlyPlaying = false;                 
+        ui.PlayerTurnAlert(board.turnOfPlayer);
+        
       }
     });//end then
 
@@ -196,10 +194,10 @@ const movePawn = function(e){
 
 //start multiplayerMode
 const multiplayerMode = function(e){
-  const player1 = new Player('player-1', 
+  const player1 = new Player(1, 'player-1', 
                           false, 
                           board.player1Pawns);
-  const player2 = new Player('player-2', 
+  const player2 = new Player(2, 'player-2', 
                           false, 
                           board.player2Pawns);
   //reference players on board.
@@ -209,16 +207,17 @@ const multiplayerMode = function(e){
 
   //render state
   ui.renderState('startGame');
-
+  ui.PlayerTurnAlert(board.turnOfPlayer);
+  
   e.preventDefault();
 } //end multiplayerMode
 
 //start singlePlayerMode
 const singlePlayerMode = function(e){
-  const player1 = new Player('player-1', 
+  const player1 = new Player(1, 'player-1', 
                           false, 
                           board.player1Pawns);
-  const player2 = new Player('Computer', 
+  const player2 = new Player(2, 'Computer', 
                           true, 
                           board.player2Pawns);
 
@@ -229,6 +228,7 @@ const singlePlayerMode = function(e){
 
   //render state
   ui.renderState('startGame');
+  ui.PlayerTurnAlert(board.turnOfPlayer);
   
   e.preventDefault();
 }//end singlePlayerMode
