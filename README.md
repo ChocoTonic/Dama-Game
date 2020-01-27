@@ -23,6 +23,7 @@ I also provided a link to the game in case you wanted to give it a try without d
 * If players' hands have emptied and none of the players had made a row of three, then players are able to move their pawns by sliding the pawn across a white line that connects its actual position to an empty spot.
 * The goal is beating your opponent into making a row of three first.
 * The game can never end in a tie since pawns can still be moved once placed on the board.
+* On Mobile, make sure to update your web browser to the latest version or javasript files might not load.
 
 ---
 ## Contributors
