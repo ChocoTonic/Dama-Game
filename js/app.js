@@ -114,11 +114,10 @@ class Board{
     
     for(let pawn of player.pawns){
       //if selected pawn is invoked
-      if(pawn.id === targetPawnID && 
-          pawn.invoked === true){
+      if(pawn.id === targetPawnID && pawn.invoked){
         //make sure all pawn are invoked
         for(let pawn of player.pawns){
-          if(pawn.invoked === false){
+          if(!pawn.invoked){
             return false;
           }
         }//end for*2
@@ -131,7 +130,7 @@ class Board{
   selectComputerPawn(ComputerPawns){
 
     //while selecting pawns give precedence to non-invoked ones
-    const targetPawn = ComputerPawns.filter(pawn => pawn.invoked === false)[0] 
+    const targetPawn = ComputerPawns.filter(pawn => !pawn.invoked)[0] 
                           || ComputerPawns[Math.floor(Math.random()*ComputerPawns.length)];
 
     const UITargetPawn = ui.getUIPawn(targetPawn);
@@ -168,7 +167,7 @@ class Board{
 
     //if pawn was invoked update value to true
     for(let pawn of player.pawns){
-      if(pawn.id === targetPawnID && pawn.invoked === false){
+      if(pawn.id === targetPawnID && !pawn.invoked){
         pawn.invoked = true;
         // console.log(player.pawns);
       }
@@ -188,7 +187,7 @@ class Board{
     const targetPawnID = parseInt(targetPawn.dataset.id, 10);
     //if pawn is not invoked yet then it can move to any free slot
     for(let pawn of player.pawns){
-      if(pawn.id === targetPawnID && pawn.invoked === false){
+      if(pawn.id === targetPawnID && !pawn.invoked){
         return Array.from(UIslots).filter(UIslot => this.availableSlots.includes(parseInt(UIslot.dataset.id, 10)));
       }
     }
